@@ -1,0 +1,71 @@
+# Copyright (c) 2013, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#device         mount point      fstype        [device2] [length=]
+
+#common
+/dev/block/bootdevice/by-name/system            /system         ext4    ro,barrier=1,discard                                                wait,slotselect,verify
+/dev/block/bootdevice/by-name/vendor            /vendor         ext4    ro,barrier=1                                                        wait,slotselect,verify
+/dev/block/bootdevice/by-name/userdata          /data           ext4    nosuid,nodev,barrier=1,noauto_da_alloc,discard,errors=panic         wait,check,latemount,formattable,fileencryption=ice
+/dev/block/mmcblk0p1                            /external_sd    auto    nosuid,nodev
+/dev/block/sdg1                                 /usb-otg        auto    nosuid,nodev
+/dev/block/bootdevice/by-name/boot              /boot           emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/misc              /misc           emmc    defaults                                                            defaults
+
+#LUN0
+/dev/block/bootdevice/by-name/hidden            /hidden         ext4    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/cda               /hidden/data    ext4    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/systeminfo        /systeminfo     emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/dsp               /dsp            emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/modem             /modem          vfat    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/persist           /persist        ext4    defaults                                                            defaults
+/dev/block/bootdevice/by-name/sutinfo           /sutinfo        emmc    defaults                                                            defaults
+/dev/block/bootdevice/by-name/splash2           /splash2        emmc    defaults                                                            defaults
+/dev/block/bootdevice/by-name/elabel            /elabel         ext4    defaults                                                            defaults
+
+#LUN1, LIN2
+/dev/block/bootdevice/by-name/xbl               /xbl            emmc    defaults                                                            wait,slotselect
+
+#LUN4
+/dev/block/bootdevice/by-name/rpm               /rpm            emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/tz                /tz             emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/hyp               /hyp            emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/pmic              /pmic           emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/bluetooth         /bt_firmware    vfat    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/mdtpsecapp        /mdtpsecapp     emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/mdtp              /mdtp           emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/abl               /abl            emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/keymaster         /keymaster      emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/cmnlib            /cmnlib         emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/cmnlib64          /cmnlib64       emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/devcfg            /devcfg         emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/splash            /splash         emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/logfs             /logfs          vfat    defaults                                                            wait
+/dev/block/bootdevice/by-name/storsec           /storsec        emmc    defaults                                                            defaults
+
+#LUN5
+/dev/block/bootdevice/by-name/nvdef             /nvdef          emmc    defaults                                                            wait,slotselect

@@ -1,0 +1,3 @@
+# Removable storage
+/external_sd    auto        /dev/block/mmcblk0p*        flags=removable;storage;wipeingui;andsec
+/usb-otg        auto        /dev/block/sdg*             flags=removable;storage
