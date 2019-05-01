@@ -24,9 +24,14 @@ To compile TWRP for a device (either NB1 or A1N), clone this repository into the
 
 **WARNING:** A1N support is entirely untested at this point.
 
-```
+For compilation you should use this TWRP manifest: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni/tree/twrp-8.1
+
+```bash
 # Compiling
+$ python2 -m virtualenv .
+$ . bin/activate
 $ . build/envsetup.sh
+$ export ALLOW_MISSING_DEPENDENCIES=true
 $ lunch omni_NB1-eng
 $ make -jx recoveryimage //replace x in -jx with number of cores you want to use for compilation
 ```
