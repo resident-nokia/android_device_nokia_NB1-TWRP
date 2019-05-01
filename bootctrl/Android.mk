@@ -4,6 +4,10 @@ ifneq ($(BOARD_IS_AUTOMOTIVE),true)
 ifneq ($(filter msm8996 msm8998 sdm660 sdm845,$(TARGET_BOARD_PLATFORM)),)
 LOCAL_PATH := $(call my-dir)
 
+# Prevent the module in device/nokia/A1N from registering 
+# itself when building device/nokia/NB1
+ifneq ($(filter $(TARGET_DEVICE),$(LOCAL_PATH)),)
+
 # HAL Shared library for the target. Used by libhardware.
 include $(CLEAR_VARS)
 LOCAL_CFLAGS += -Wall -Werror
@@ -25,6 +29,7 @@ LOCAL_SRC_FILES := boot_control.cpp
 LOCAL_MODULE := bootctrl.$(TARGET_BOARD_PLATFORM)
 include $(BUILD_STATIC_LIBRARY)
 
+endif
 endif
 endif
 endif
