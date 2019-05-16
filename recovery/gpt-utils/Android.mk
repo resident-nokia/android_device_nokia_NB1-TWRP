@@ -18,7 +18,7 @@ LOCAL_PATH := $(call my-dir)
 
 # Prevent the module in device/nokia/A1N from registering 
 # itself when building device/nokia/NB1
-ifneq ($(filter $(TARGET_DEVICE),$(LOCAL_PATH)),)
+ifneq ($(findstring $(TARGET_DEVICE),$(LOCAL_PATH)),)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := gpt-utils.cpp
