@@ -69,3 +69,7 @@
 
 #LUN5
 /dev/block/bootdevice/by-name/nvdef             /nvdef          emmc    defaults                                                            wait,slotselect
+
+# Raw partition images
+/dev/block/bootdevice/by-name/system            /system_image   emmc    ro,barrier=1,discard                                                wait,slotselect,verify
+/dev/block/bootdevice/by-name/vendor            /vendor_image   emmc    ro,barrier=1                                                        wait,slotselect,verify
