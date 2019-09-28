@@ -45,7 +45,7 @@
 /dev/block/bootdevice/by-name/persist           /persist        ext4    defaults                                                            defaults
 /dev/block/bootdevice/by-name/sutinfo           /sutinfo        emmc    defaults                                                            defaults
 /dev/block/bootdevice/by-name/splash2           /splash2        emmc    defaults                                                            defaults
-/dev/block/bootdevice/by-name/elabel            /elabel         ext4    defaults                                                            defaults
+# /dev/block/bootdevice/by-name/elabel            /elabel         ext4    defaults                                                            defaults
 
 #LUN1, LIN2
 /dev/block/bootdevice/by-name/xbl               /xbl            emmc    defaults                                                            wait,slotselect
