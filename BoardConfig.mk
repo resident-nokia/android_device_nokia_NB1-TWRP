@@ -112,4 +112,5 @@ TW_THEME := portrait_hdpi
 TW_USE_TOOLBOX := true
 
 # Workaround for error copying vendor files to recovery ramdisk
-TARGET_COPY_OUT_VENDOR := system/vendor
+BOARD_VENDORIMAGE_PARTITION_TYPE := ext4
+TARGET_COPY_OUT_VENDOR := vendor
