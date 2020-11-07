@@ -16,10 +16,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-# Prevent the module in device/nokia/A1N from registering 
-# itself when building device/nokia/NB1
-ifneq ($(findstring $(TARGET_DEVICE)/,$(LOCAL_PATH)),)
-
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := gpt-utils.cpp
 ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
@@ -48,5 +44,3 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := libgptutils_headers
 LOCAL_EXPORT_C_INCLUDE_DIRS:=$(LOCAL_PATH)
 include $(BUILD_HEADER_LIBRARY)
-
-endif
