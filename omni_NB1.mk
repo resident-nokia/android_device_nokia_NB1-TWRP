@@ -15,7 +15,7 @@
 #
 
 # Build for NB1
-LOCAL_DEVICE := NB1
+LOCAL_PATH := device/nokia/NB1
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
@@ -57,6 +57,10 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     libcutils \
     libgptutils \
     libz
+
+# Partitions (listed in the file) to be wiped under recovery.
+TARGET_RECOVERY_WIPE := \
+    $(LOCAL_PATH)/recovery/root/etc/recovery.wipe	
 
 # Time Zone data for recovery
 PRODUCT_COPY_FILES += \

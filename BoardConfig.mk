@@ -33,10 +33,14 @@ TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := cortex-a73
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a73
+
+# Enable CPUSets
+ENABLE_CPUSETS := true
+ENABLE_SCHEDBOOST := true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8998
@@ -48,47 +52,48 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno540
 TARGET_USES_64_BIT_BINDER := true
 
 # Kernel
-BOARD_KERNEL_BASE        := 0x00000000
-BOARD_KERNEL_CMDLINE     := console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc1b0000 
-BOARD_KERNEL_CMDLINE	 += androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 
-BOARD_KERNEL_CMDLINE	 += sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=1  
-BOARD_KERNEL_CMDLINE	 += androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3
-BOARD_KERNEL_CMDLINE     += skip_override androidboot.selinux=permissive
-BOARD_KERNEL_OFFSET      := 0x00008000
-BOARD_KERNEL_PAGESIZE    := 4096
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc1b0000 
+BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 
+BOARD_KERNEL_CMDLINE += sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=1  
+BOARD_KERNEL_CMDLINE += androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3
+BOARD_KERNEL_CMDLINE += skip_override androidboot.selinux=permissive
+
+BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
-BOARD_RAMDISK_OFFSET     := 0x01000000
-BOARD_SECOND_OFFSET      := 0x00f00000
-TARGET_PREBUILT_KERNEL   := $(LOCAL_PATH)/prebuilt/Image.$(LOCAL_DEVICE).gz-dtb
-TARGET_RECOVERY_FSTAB 	 := $(LOCAL_PATH)/recovery/root/etc/recovery.$(LOCAL_DEVICE).fstab
+BOARD_KERNEL_PAGESIZE := 4096
+BOARD_RAMDISK_OFFSET := 0x01000000
+BOARD_SECOND_OFFSET := 0x00f00000
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
 
 # Encryption
-PLATFORM_SECURITY_PATCH := 2025-12-31
+PLATFORM_VERSION := 10
+PLATFORM_SECURITY_PATCH := 2025-01-05
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_FBE := true
 
-# Partitions / Filesystems
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+# Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist odm
-BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-
-# Recovery
-BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_HAS_NO_REAL_SDCARD := true
-BOARD_HAS_REMOVABLE_STORAGE := true
-BOARD_PROVIDES_GPTUTILS := true
-BOARD_SUPPRESS_SECURE_ERASE := true
-RECOVERY_NEED_SELINUX_FIX := true
-RECOVERY_SDCARD_ON_DATA := true
-TARGET_NO_KERNEL := false
-TARGET_RECOVERY_PIXEL_FORMAT := RGBA_8888
-TARGET_RECOVERY_QCOM_RTC_FIX := true
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
+BOARD_VENDORIMAGE_PARTITION_SIZE := 1073741824
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USES_MKE2FS := true
 
+# Recovery
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_PROVIDES_GPTUTILS := true
+TARGET_NO_KERNEL := false
+TARGET_RECOVERY_PIXEL_FORMAT := RGBA_8888
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+
 # TWRP specific build flags
+BOARD_HAS_NO_REAL_SDCARD := true
+BOARD_HAS_REMOVABLE_STORAGE := true
+RECOVERY_SDCARD_ON_DATA := true
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
 TW_DEFAULT_BRIGHTNESS := 80
@@ -99,8 +104,6 @@ TW_EXTERNAL_STORAGE_MOUNT_POINT := external_sd
 TW_EXTERNAL_STORAGE_PATH := /external_sd
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_IGNORE_MISC_WIPE_DATA := true
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_FBE := true
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INPUT_BLACKLIST := hbtp_vm
@@ -112,4 +115,5 @@ TW_THEME := portrait_hdpi
 TW_USE_TOOLBOX := true
 
 # Workaround for error copying vendor files to recovery ramdisk
-TARGET_COPY_OUT_VENDOR := system/vendor
+BOARD_VENDORIMAGE_PARTITION_TYPE := ext4
+TARGET_COPY_OUT_VENDOR := vendor

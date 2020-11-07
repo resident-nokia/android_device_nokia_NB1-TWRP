@@ -1,3 +1,0 @@
-# Removable storage
-/external_sd    auto        /dev/block/mmcblk0p1        flags=removable;storage;wipeingui;andsec;display="Micro SD card"
-/usb-otg        auto        /dev/block/sdg1             flags=removable;storage;display="USB OTG"
