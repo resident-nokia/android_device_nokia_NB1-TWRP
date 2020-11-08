@@ -106,7 +106,7 @@ service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service
     seclabel u:r:recovery:s0
 
 on boot
-    setprop sys.usb.config mtp,adb,mass_storage
+    setprop sys.usb.config adb
 
 on init
     setprop ro.hardware.keystore msm8998
