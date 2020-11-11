@@ -1,4 +1,4 @@
-# Copyright (c) 2009-2012, 2014-2015, 2016-2018 The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2012, 2014-2018, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,36 +25,22 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-on early-init
-    setenforce 0
-
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
     chmod 0660 /dev/qseecom
     chown system drmrpc /dev/qseecom
     chmod 0664 /dev/ion
     chown system system /dev/ion
-    setprop ro.hardware.bootctrl msm8998
-    setprop ro.build.system_root_image true
+    
     export LD_LIBRARY_PATH /sbin:/vendor/lib64:/vendor/lib64/hw
     install_keyring
 
+    setprop crypto.ready 1
 
-# Needed to make qseecomd work in recovery
-    chmod 0777 /dev/qseecom
-    chmod 0664 /dev/ion
-    chown system system /dev/ion
-
-# Separate copy needed to use /sbin/linker64 instead of /system/bin/linker64
+# separate copy needed to use /sbin/linker64 instead of /system/bin/linker64
 service sbinqseecomd /sbin/qseecomd
-    user root
-    group root
-    disabled
-    seclabel u:r:recovery:s0
-
-service prepdecrypt /sbin/prepdecrypt.sh
-    oneshot
     disabled
     user root
     group root
@@ -106,25 +92,25 @@ service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service
     seclabel u:r:recovery:s0
 
 on boot
-    setprop sys.usb.config adb
+    # save battery by switching to interactive once booted
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor interactive
 
-on init
-    setprop ro.hardware.keystore msm8998
-    setprop ro.hardware.gatekeeper msm8998
-    setprop ro.hardware.bootctrl msm8998
-    setprop ro.build.system_root_image true
-    start hwservicemanager
-    start boot-1-0
-    start prepdecrypt
+on property:crypto.ready=1
+    start sbinqseecomd
 
 on property:crypto.ready=0
     stop sbinqseecomd
     stop keymaster-3-0
     stop gatekeeper-1-0
+    stop hwservicemanager
+    stop keystore
     stop servicemanager
 
-on property:crypto.ready=1
-    start sbinqseecomd
+on property:vendor.sys.listeners.registered=true
+    start hwservicemanager
     start keymaster-3-0
     start gatekeeper-1-0
     start servicemanager

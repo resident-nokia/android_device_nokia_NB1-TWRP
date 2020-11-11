@@ -57,6 +57,13 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     libgptutils \
     libz
 
+# Properties for decryption
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.keystore=msm8998 \
+    ro.hardware.gatekeeper=msm8998 \
+    ro.hardware.bootctrl=msm8998 \
+    ro.build.system_root_image=true
+
 # Partitions (listed in the file) to be wiped under recovery.
 TARGET_RECOVERY_WIPE := \
     $(LOCAL_PATH)/recovery/root/etc/recovery.wipe	
