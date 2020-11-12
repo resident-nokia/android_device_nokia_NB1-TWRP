@@ -43,7 +43,7 @@ TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a9
@@ -55,7 +55,6 @@ ENABLE_SCHEDBOOST := true
 # GPT Utils
 BOARD_PROVIDES_GPTUTILS := true
 
-# Kernel
 # Kernel
 BOARD_KERNEL_BASE        := 0x00000000
 BOARD_KERNEL_CMDLINE     := console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc1b0000 
@@ -98,7 +97,7 @@ RECOVERY_SDCARD_ON_DATA := true
 # Crypto
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_CRYPTO_FBE := true
-PLATFORM_VERSION := 10
+PLATFORM_VERSION := 16.1.0
 PLATFORM_SECURITY_PATCH := 2025-12-31
 
 # TWRP specific build flags

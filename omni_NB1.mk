@@ -40,6 +40,7 @@ AB_OTA_POSTINSTALL_CONFIG += \
 PRODUCT_PACKAGES += \
     otapreopt_script \
     update_engine \
+    update_engine_sideload \
     update_verifier
 
 # The following modules are included in debuggable builds only.
@@ -49,6 +50,8 @@ PRODUCT_PACKAGES_DEBUG += \
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-service \
     bootctrl.msm8998
 
 PRODUCT_STATIC_BOOT_CONTROL_HAL := \

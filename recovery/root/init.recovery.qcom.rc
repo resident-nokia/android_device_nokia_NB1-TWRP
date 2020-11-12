@@ -35,6 +35,7 @@ on fs
     chown system drmrpc /dev/qseecom
     chmod 0664 /dev/ion
     chown system system /dev/ion
+    export LD_LIBRARY_PATH /sbin:/vendor/lib64:/vendor/lib64/hw
     install_keyring
 
     setprop crypto.ready 1
@@ -72,6 +73,12 @@ service keystore /sbin/keystore /data/misc/keystore
     disabled
     seclabel u:r:recovery:s0
 
+service boot-1-0 /sbin/android.hardware.boot@1.0-service
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
 service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service
     user root
     group root
@@ -105,6 +112,7 @@ on property:crypto.ready=1
 
 on property:vendor.sys.listeners.registered=true
     start hwservicemanager
+    start boot-1-0
     start keymaster-3-0
     start gatekeeper-1-0
     start servicemanager
