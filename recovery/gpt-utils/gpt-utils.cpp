@@ -666,9 +666,7 @@ int gpt_utils_set_xbl_boot_partition(enum boot_chain chain)
 
         if (chain == BACKUP_BOOT) {
                 boot_lun_id = BOOT_LUN_B_ID;
-                if (!stat(XBL_BACKUP, &st))
-                        boot_dev = XBL_BACKUP;
-                else if (!stat(XBL_AB_SECONDARY, &st))
+                if (!stat(XBL_AB_SECONDARY, &st))
                         boot_dev = XBL_AB_SECONDARY;
                 else {
                         fprintf(stderr, "%s: Failed to locate secondary xbl\n",
@@ -677,9 +675,7 @@ int gpt_utils_set_xbl_boot_partition(enum boot_chain chain)
                 }
         } else if (chain == NORMAL_BOOT) {
                 boot_lun_id = BOOT_LUN_A_ID;
-                if (!stat(XBL_PRIMARY, &st))
-                        boot_dev = XBL_PRIMARY;
-                else if (!stat(XBL_AB_PRIMARY, &st))
+                if (!stat(XBL_AB_PRIMARY, &st))
                         boot_dev = XBL_AB_PRIMARY;
                 else {
                         fprintf(stderr, "%s: Failed to locate primary xbl\n",
