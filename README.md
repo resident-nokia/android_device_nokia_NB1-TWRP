@@ -1,42 +1,70 @@
-# Device Tree for Nokia 8 / Sirocco (NB1 / A1N)
+# Device Tree for Nokia 8 / Sirocco
 
-The Nokia 8 (codenamed _"NB1"_) is a flagship smartphone from Nokia.
-It was released in September 2017.
+The Nokia 8 is a high-end Nokia-branded smartphone running the Android operating system
+Announced on 16 August 2017 in London, England by HMD Global,[4][5] the phone began sales in Europe in September 2017.
 
-| Basic                   | Spec Sheet                                                                                                                                                                    |
-| -----------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CPU                     | Octa-core (4x2.5 GHz Kryo & 4x1.8 GHz Kryo)                                                                                                                                   |
-| Chipset                 | Qualcomm MSM8998 Snapdragon 835                                                                                                                                               |
-| GPU                     | Adreno 540                                                                                                                                                                    |
-| Memory                  | 4 GB RAM                                                                                                                                                                      |
-| Shipped Android Version | 7.1.1                                                                                                                                                                         |
-| Storage                 | 64 GB                                                                                                                                                                         |
-| Battery                 | Non-removable Li-Ion 3090 mAh battery                                                                                                                                         |
-| Display                 | 5.3 inches, 77.4 cm2 (~69.4% screen-to-body ratio)                                                                                                                            |
-| Camera (Back)           | Dual: 13 MP, f/2.0, 1.12µm, PDAF & laser AF, OIS + 13 MP B/W, f/2.0, 1.12µm, PDAF & laser AF, Zeiss optics, dual-LED dual-tone flash,HDR, panorama,2160p@30fps, 1080p@30fps   |
-| Camera (Front)          | 13 MP, f/2.0, 1.12µm, PDAF,2160p                                                                                                                                              |
+| Basic                   | Spec Sheet                                                                                                                     |
+| -----------------------:|:------------------------------------------------------------------------------------------------------------------------------ |
+| CPU                     | Octa-core (4x2.5 GHz Kryo & 4x1.8 GHz Kryo)                                                                           |
+| Chipset                 | Qualcomm MSM8998 Snapdragon 835 (10 nm)                                                                                                 |
+| GPU                     | Adreno 540                                                                                                                     |
+| Memory                  | 4/6 GB RAM                                                                                                                     |
+| Shipped Android Version | Android 7.1.1 (Nougat)                                                                                                                            |
+| Storage                 | 64/128 GB                                                                                                                          |
+| Battery                 | Non-removable Li-Ion 3090 mAh battery                                                                                           |
+| Display                 | 1440 x 2560 pixels, 16:9 ratio (~554 ppi density)                                                                              |
+| Camera (Back)           | 13 MP, f/2.0, 1/3.1", 1.12µm, PDAF, Laser AF, OIS                                                                              |
+| Camera (Front)          | 13 MP, f/2.0, (wide), 1/3.1", 1.12µm, PDAF                                                                                                    |
 
-![Nokia 8](https://drop.ndtv.com/TECH/product_database/images/8162017114310PM_635_nokia_8_back_silver.jpeg)
+![Nokia 8](https://static.wikia.nocookie.net/hmd_nokia/images/f/f1/Nb1.png/revision/latest?cb=20200529024823)
 
-## Build instructions
+## Compile
 
-To compile TWRP for a device (either NB1 or A1N), clone this repository into the matching device tree path, i.e. `device/nokia/NB1` or `device/nokia/A1N`.
+First download omni-9.0 tree:
 
-**WARNING:** A1N support is entirely untested at this point.
-
-For compilation you should use this TWRP manifest: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni/tree/twrp-8.1
-
-```bash
-# Compiling
-$ python2 -m virtualenv .
-$ . bin/activate
-$ . build/envsetup.sh
-$ export ALLOW_MISSING_DEPENDENCIES=true
-$ lunch omni_NB1-eng
-$ make -jx recoveryimage //replace x in -jx with number of cores you want to use for compilation
 ```
- 
-### Thanks to:
+repo init --depth=1 -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-9.0
+```
+Then add these string to .repo/manifests/remove.xml
+
+
+Then add these projects to .repo/local_manifests/roomservice.xml (If you don't have it, you can add them to .repo/manifest.xml): 
+
+For NB1:
+```xml
+<project name="GPUCode/twrp_device_nokia_msm8998" path="device/nokia/NB1" remote="github" revision="android-9.0" />
+```
+
+For A1N:
+```xml
+<project name="GPUCode/twrp_device_nokia_msm8998" path="device/nokia/A1N" remote="github" revision="android-9.0" />
+```
+
+Now you can sync your source:
+
+```
+repo sync -c --no-tags --no-clone-bundle -j$(nproc --all)
+```
+
+Finally execute these:
+
+```
+source build/envsetup.sh
+export ALLOW_MISSING_DEPENDENCIES=true
+export LC_ALL=C
+lunch omni_<device>-eng (where device either NB1 or A1N) 
+mka -j$(nproc --all) recoveryimage 
+```
+
+To test it:
+
+```
+fastboot flash:raw boot out/target/product/<device>/recovery.img
+```
+
+Kernel Source: https://github.com/resident-nokia/umbrella
+
+## Credits
  * TeamWin Team
  * Omni Team
  * XDA Forums
@@ -48,3 +76,4 @@ $ make -jx recoveryimage //replace x in -jx with number of cores you want to use
  * wuxianlin
  * dg28gadhavi
  * Dorian Stoll
+ * GPUCode
