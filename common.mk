@@ -46,6 +46,8 @@ PRODUCT_PACKAGES_DEBUG += \
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-service \
     bootctrl.msm8998
 
 PRODUCT_STATIC_BOOT_CONTROL_HAL := \
@@ -54,14 +56,19 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     libgptutils \
     libz
 
+# Properties for decryption
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.keystore=msm8998 \
+    ro.hardware.gatekeeper=msm8998 \
+    ro.hardware.bootctrl=msm8998 \
+    ro.build.system_root_image=true
+
 # Time Zone data for recovery
 PRODUCT_COPY_FILES += \
     system/timezone/output_data/iana/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
 
-# Release name
+# Common product configs
 PRODUCT_BRAND := Nokia
 PRODUCT_DEVICE := $(LOCAL_DEVICE)
-PRODUCT_MANUFACTURER := Nokia
-PRODUCT_MODEL := $(LOCAL_DEVICE)
+PRODUCT_MANUFACTURER := HMD Global
 PRODUCT_NAME := omni_$(LOCAL_DEVICE)
-PRODUCT_RELEASE_NAME := $(LOCAL_DEVICE)

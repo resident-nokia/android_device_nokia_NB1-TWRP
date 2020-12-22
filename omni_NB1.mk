@@ -18,4 +18,7 @@
 LOCAL_DEVICE := NB1
 
 # Inherit from the generic msm8998 configuration
-$(call inherit-product, device/nokia/$(LOCAL_DEVICE)/NokiaCommon.mk)
+$(call inherit-product, device/nokia/$(LOCAL_DEVICE)/common.mk)
+
+# Model
+PRODUCT_MODEL := Nokia 8

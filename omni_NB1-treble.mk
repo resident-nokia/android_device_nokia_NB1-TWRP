@@ -15,7 +15,14 @@
 #
 
 # Build for NB1
-LOCAL_DEVICE := NB1_Treble
+LOCAL_DEVICE := NB1-treble
 
 # Inherit from the generic msm8998 configuration
-$(call inherit-product, device/nokia/$(LOCAL_DEVICE)/NokiaCommon.mk)
+$(call inherit-product, device/nokia/$(LOCAL_DEVICE)/common.mk)
+
+# Extra A/B partitions for treble
+AB_OTA_PARTITIONS += \
+	vendor
+
+# Model
+PRODUCT_MODEL := Nokia 8

@@ -24,7 +24,6 @@
 # components.
 
 LOCAL_PATH := device/nokia/$(LOCAL_DEVICE)
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Architecture
 TARGET_ARCH := arm64
@@ -63,9 +62,6 @@ BOARD_SECOND_OFFSET      := 0x00f00000
 TARGET_PREBUILT_KERNEL   := $(LOCAL_PATH)/prebuilt/Image.$(LOCAL_DEVICE).gz-dtb
 TARGET_RECOVERY_FSTAB 	 := $(LOCAL_PATH)/recovery/root/etc/recovery.$(LOCAL_DEVICE).fstab
 
-# Encryption
-PLATFORM_SECURITY_PATCH := 2025-12-31
-
 # Partitions / Filesystems
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -89,6 +85,12 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USES_MKE2FS := true
 
+# Crypto
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+PLATFORM_VERSION := 16.1.0
+PLATFORM_SECURITY_PATCH := 2025-12-31
+
 # TWRP specific build flags
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
@@ -100,8 +102,6 @@ TW_EXTERNAL_STORAGE_MOUNT_POINT := external_sd
 TW_EXTERNAL_STORAGE_PATH := /external_sd
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_IGNORE_MISC_WIPE_DATA := true
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_FBE := true
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INPUT_BLACKLIST := hbtp_vm
@@ -113,4 +113,9 @@ TW_THEME := portrait_hdpi
 TW_USE_TOOLBOX := true
 
 # Workaround for error copying vendor files to recovery ramdisk
+ifeq ($(LOCAL_DEVICE), NB1)
 TARGET_COPY_OUT_VENDOR := system/vendor
+else
+BOARD_VENDORIMAGE_PARTITION_TYPE := ext4
+TARGET_COPY_OUT_VENDOR := vendor
+endif

@@ -19,9 +19,9 @@ ifneq ($(filter device/nokia/NB1,$(LOCAL_DIR)),)
         $(LOCAL_DIR)/omni_NB1.mk
 endif
 
-ifneq ($(filter device/nokia/NB1_Treble,$(LOCAL_DIR)),)
+ifneq ($(filter device/nokia/NB1-treble,$(LOCAL_DIR)),)
     PRODUCT_MAKEFILES := \
-        $(LOCAL_DIR)/omni_NB1_Treble.mk
+        $(LOCAL_DIR)/omni_NB1-treble.mk
 endif
 
 ifneq ($(filter device/nokia/A1N,$(LOCAL_DIR)),)
