@@ -27,48 +27,43 @@
 
 # A/B, non-split(no vendor.img) recovery.fstab variant.
 
-# device                                        mount point     fstype  [device2] [length=]
+#device         mount point      fstype        [device2] [length=]
 
-/dev/block/bootdevice/by-name/system            /system         ext4    ro,barrier=1                                                        wait,slotselect,verify
-/dev/block/bootdevice/by-name/userdata          /data           ext4    nosuid,nodev,barrier=1,noauto_da_alloc,discard,errors=panic         wait,check,latemount,formattable,fileencryption=ice
-/dev/block/bootdevice/by-name/userdata          /data           f2fs    nosuid,nodev,noatime,discard,background_gc=off,fsync_mode=nobarrier wait,check,latemount,formattable,fileencryption=ice
-/dev/block/mmcblk0p1                            /external_sd    auto    nosuid,nodev                                                        voldmanaged=sdcard1:auto
-/dev/block/sdg1                                 /usb-otg        auto    nosuid,nodev
-/dev/block/bootdevice/by-name/boot              /boot           emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/misc              /misc           emmc    defaults                                                            defaults
+/dev/block/bootdevice/by-name/system       /               ext4    ro,barrier=1                                                    wait,slotselect,verify
+/dev/block/bootdevice/by-name/userdata     /data           ext4    nosuid,nodev,barrier=1,noauto_da_alloc,discard,errors=panic   wait,check,latemount,formattable,fileencryption=ice
+/dev/block/mmcblk0p1                       /sdcard         vfat    nosuid,nodev                                                    wait
+/dev/block/bootdevice/by-name/boot         /boot           emmc    defaults                                                        wait,slotselect
+/dev/block/bootdevice/by-name/misc         /misc           emmc    defaults                                                        defaults
 
 #LUN0
-/dev/block/bootdevice/by-name/hidden            /hidden         ext4    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/cda               /hidden/data    ext4    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/systeminfo        /systeminfo     emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/dsp               /dsp            emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/modem             /modem          vfat    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/persist           /persist        ext4    defaults                                                            defaults
-/dev/block/bootdevice/by-name/sutinfo           /sutinfo        emmc    defaults                                                            defaults
-/dev/block/bootdevice/by-name/splash2           /splash2        emmc    defaults                                                            defaults
+/dev/block/bootdevice/by-name/hidden         /hidden         ext4   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/cda            /hidden/data    ext4   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/systeminfo     /systeminfo     ext4   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/dsp            /dsp            emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/modem          /modem          vfat   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/persist        /persist        ext4   defaults                                         defaults
+/dev/block/bootdevice/by-name/sutinfo        /sutinfo        emmc   defaults                                         defaults
+/dev/block/bootdevice/by-name/splash2        /splash2        emmc   defaults                                         defaults
 
 #LUN1, LIN2
-/dev/block/bootdevice/by-name/xbl               /xbl            emmc    defaults                                                            wait,slotselect
+/dev/block/bootdevice/by-name/xbl            /xbl            emmc   defaults                                         wait,slotselect
 
 #LUN4
-/dev/block/bootdevice/by-name/rpm               /rpm            emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/tz                /tz             emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/hyp               /hyp            emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/pmic              /pmic           emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/bluetooth         /bt_firmware    vfat    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/mdtpsecapp        /mdtpsecapp     emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/mdtp              /mdtp           emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/abl               /abl            emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/keymaster         /keymaster      emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/cmnlib            /cmnlib         emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/cmnlib64          /cmnlib64       emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/devcfg            /devcfg         emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/splash            /splash         emmc    defaults                                                            wait,slotselect
-/dev/block/bootdevice/by-name/logfs             /logfs          vfat    defaults                                                            wait
-/dev/block/bootdevice/by-name/storsec           /storsec        emmc    defaults                                                            defaults
+/dev/block/bootdevice/by-name/rpm            /rpm            emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/tz             /tz             emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/hyp            /hyp            emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/pmic           /pmic           emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/bluetooth      /bt_firmware    vfat   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/mdtpsecapp     /mdtpsecapp     emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/mdtp           /mdtp           emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/abl            /abl            emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/keymaster      /keymaster      emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/cmnlib         /cmnlib         emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/cmnlib64       /cmnlib64       emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/devcfg         /devcfg         emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/splash         /splash         emmc   defaults                                         wait,slotselect
+/dev/block/bootdevice/by-name/logfs          /logfs          vfat   defaults                                         wait
+/dev/block/bootdevice/by-name/storsec        /storsec        emmc   defaults                                         defaults
 
 #LUN5
-/dev/block/bootdevice/by-name/nvdef             /nvdef          emmc    defaults                                                            wait,slotselect
-
-# Raw partition images
-/dev/block/bootdevice/by-name/system            /system_image   emmc    ro,barrier=1,discard                                                wait,slotselect,verify
+/dev/block/bootdevice/by-name/nvdef          /nvdef          emmc   defaults                                         wait,slotselect

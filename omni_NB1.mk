@@ -67,10 +67,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 TARGET_RECOVERY_WIPE := \
     $(LOCAL_PATH)/recovery/root/etc/recovery.wipe	
 
-# Time Zone data for recovery
-PRODUCT_COPY_FILES += \
-    system/timezone/output_data/iana/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
-
 # Common product configs
 PRODUCT_BRAND := Nokia
 PRODUCT_DEVICE := NB1
