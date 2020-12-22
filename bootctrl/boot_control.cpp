@@ -35,7 +35,7 @@ extern "C" {
 #endif
 #include <errno.h>
 #define LOG_TAG "bootcontrolhal"
-#include <log/log.h>
+#include <cutils/log.h>
 #include <hardware/boot_control.h>
 #include <stdio.h>
 #include <string.h>
@@ -46,7 +46,7 @@ extern "C" {
 #include <fcntl.h>
 #include <limits.h>
 #include <cutils/properties.h>
-#include "../recovery/gpt-utils/gpt-utils.h"
+#include "gpt-utils.h"
 
 #define BOOTDEV_DIR "/dev/block/bootdevice/by-name"
 #define BOOT_IMG_PTN_NAME "boot"
@@ -464,7 +464,8 @@ static int boot_ctl_set_active_slot_for_partitions(vector<string> part_list,
 			memcpy((void*)inactive_guid, (const void*)pentryA,
 					TYPE_GUID_SIZE);
 		} else {
-			ALOGE("Both A & B are inactive..Aborting");
+			ALOGE("Both A & B for %s are inactive..Aborting",
+					prefix.c_str());
 			goto error;
 		}
 		if (!strncmp(slot_suffix_arr[slot], AB_SLOT_A_SUFFIX,
@@ -525,7 +526,6 @@ int set_active_boot_slot(struct boot_control_module *module, unsigned slot)
 	int rc = -1;
 	int is_ufs = gpt_utils_is_ufs_device();
 	map<string, vector<string>>::iterator map_iter;
-	vector<string>::iterator string_iter;
 
 	if (boot_control_check_slot_sanity(module, slot)) {
 		ALOGE("%s: Bad arguments", __func__);
@@ -536,8 +536,14 @@ int set_active_boot_slot(struct boot_control_module *module, unsigned slot)
 	//actual names. To do this we append the slot suffix to every member
 	//in the list.
 	for (i = 0; i < ARRAY_SIZE(ptn_list); i++) {
-		//XBL is handled differrently for ufs devices so ignore it
-		if (is_ufs && !strncmp(ptn_list[i], PTN_XBL, strlen(PTN_XBL)))
+		//XBL & XBL_CFG are handled differrently for ufs devices so
+		//ignore them
+		if (is_ufs && (!strncmp(ptn_list[i],
+						PTN_XBL,
+						strlen(PTN_XBL))
+					|| !strncmp(ptn_list[i],
+						PTN_XBL_CFG,
+						strlen(PTN_XBL_CFG))))
 				continue;
 		//The partition list will be the list of _a partitions
 		string cur_ptn = ptn_list[i];
@@ -560,7 +566,11 @@ int set_active_boot_slot(struct boot_control_module *module, unsigned slot)
 	for (map_iter = ptn_map.begin(); map_iter != ptn_map.end(); map_iter++){
 		if (map_iter->second.size() < 1)
 			continue;
-		boot_ctl_set_active_slot_for_partitions(map_iter->second, slot);
+		if (boot_ctl_set_active_slot_for_partitions(map_iter->second,
+					slot)) {
+			ALOGE("%s: Failed to set active slot", __func__);
+			goto error;
+		}
 	}
 	if (is_ufs) {
 		if (!strncmp(slot_suffix_arr[slot], AB_SLOT_A_SUFFIX,
