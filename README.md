@@ -31,7 +31,7 @@ Then add these string to .repo/manifests/remove.xml
 Then add these projects to .repo/local_manifests/roomservice.xml (If you don't have it, you can add them to .repo/manifest.xml): 
 
 ```xml
-<project name="GPUCode/android_device_nokia_nb1-TWRP" path="device/nokia/NB1" remote="github" revision="android-9.0" />
+<project name="GPUCode/android_device_nokia_NB1-TWRP" path="device/nokia/NB1" remote="github" revision="android-9.0" />
 ```
 
 Now you can sync your source:
