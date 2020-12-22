@@ -14,17 +14,10 @@
 # limitations under the License.
 #
 
-ifneq ($(filter device/nokia/NB1,$(LOCAL_DIR)),)
-    PRODUCT_MAKEFILES := \
-        $(LOCAL_DIR)/omni_NB1.mk
-endif
+PRODUCT_MAKEFILES := \
+    $(LOCAL_DIR)/omni_NB1.mk
 
-ifneq ($(filter device/nokia/NB1-treble,$(LOCAL_DIR)),)
-    PRODUCT_MAKEFILES := \
-        $(LOCAL_DIR)/omni_NB1-treble.mk
-endif
-
-ifneq ($(filter device/nokia/A1N,$(LOCAL_DIR)),)
-    PRODUCT_MAKEFILES := \
-        $(LOCAL_DIR)/omni_A1N.mk
-endif
+COMMON_LUNCH_CHOICES := \
+    omni_NB1-user \
+    omni_NB1-userdebug \
+    omni_NB1-eng
