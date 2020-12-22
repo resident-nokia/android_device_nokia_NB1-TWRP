@@ -65,7 +65,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Partitions (listed in the file) to be wiped under recovery.
 TARGET_RECOVERY_WIPE := \
-    $(LOCAL_PATH)/recovery/root/system/etc/recovery.wipe	
+    $(LOCAL_PATH)/recovery/root/etc/recovery.wipe	
 
 # Time Zone data for recovery
 PRODUCT_COPY_FILES += \
