@@ -23,7 +23,7 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-LOCAL_PATH := device/nokia/$(LOCAL_DEVICE)
+LOCAL_PATH := device/nokia/NB1
 
 # Architecture
 TARGET_ARCH := arm64

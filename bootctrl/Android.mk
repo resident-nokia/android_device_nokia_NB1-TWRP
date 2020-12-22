@@ -3,7 +3,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/gpt-utils/inc
 LOCAL_CFLAGS += -Wall -Werror
-LOCAL_SHARED_LIBRARIES += liblog librecovery_updater_msm libcutils
+LOCAL_SHARED_LIBRARIES += liblog libgptutils libcutils
 LOCAL_HEADER_LIBRARIES += libhardware_headers
 LOCAL_SRC_FILES := boot_control.cpp
 LOCAL_MODULE_RELATIVE_PATH := hw
@@ -15,7 +15,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/gpt-utils/inc
 LOCAL_CFLAGS += -Wall -Werror
-LOCAL_SHARED_LIBRARIES += liblog librecovery_updater_msm libcutils
+LOCAL_SHARED_LIBRARIES += liblog libgptutils libcutils
 LOCAL_HEADER_LIBRARIES := libhardware_headers
 LOCAL_SRC_FILES := boot_control.cpp
 LOCAL_MODULE := bootctrl.$(TARGET_BOARD_PLATFORM)
