@@ -63,6 +63,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.bootctrl=msm8998 \
     ro.build.system_root_image=true
 
+# Partitions (listed in the file) to be wiped under recovery.
+TARGET_RECOVERY_WIPE := \
+    $(LOCAL_PATH)/recovery/root/system/etc/recovery.wipe	
+
 # Time Zone data for recovery
 PRODUCT_COPY_FILES += \
     system/timezone/output_data/iana/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
